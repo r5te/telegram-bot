@@ -1,7 +1,7 @@
 import os
 from telegram import Update
 from telegram.ext import (
-    Application,
+    ApplicationBuilder,
     CommandHandler,
     MessageHandler,
     filters,
@@ -187,7 +187,7 @@ def update_data(update: Update, context: CallbackContext):
 
 # الوظيفة الرئيسية
 def main():
-    application = Application.builder().token(TOKEN).build()
+    application = ApplicationBuilder().token(TOKEN).build()
 
     # إضافة المعالجات
     application.add_handler(CommandHandler("start", start))
@@ -198,3 +198,10 @@ def main():
     application.add_handler(CommandHandler("url", search_by_url))
     application.add_handler(CommandHandler("user", search_by_user))
     application.add_handler(CommandHandler("add", add_data))
+    application.add_handler(CommandHandler("update", update_data))
+
+    # بدء البوت
+    application.run_polling()
+
+if __name__ == '__main__':
+    main()
